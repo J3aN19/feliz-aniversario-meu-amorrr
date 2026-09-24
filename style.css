@@ -17655,3 +17655,118 @@ body {
     }
 
 }
+
+/* =========================================================
+   📱 SCROLL REAL — ESCENA 1
+   ========================================================= */
+
+#escena1 {
+    position: relative !important;
+
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    -webkit-overflow-scrolling: touch;
+
+    overscroll-behavior-y: contain;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   ESPACIO REAL PARA GENERAR SCROLL
+   ========================================================= */
+
+#escena1::after {
+    content: "";
+
+    display: block;
+
+    width: 1px;
+
+    height: 180px;
+
+    margin-top: 100dvh;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   🔘 BOTÓN — SE ENCUENTRA DESPUÉS DEL SCROLL
+   ========================================================= */
+
+#escena1 .boton-comenzar {
+
+    position: absolute !important;
+
+    left: 50% !important;
+
+    top: calc(100dvh + 45px) !important;
+
+    bottom: auto !important;
+
+    transform: translateX(-50%) !important;
+
+    z-index: 10000 !important;
+
+    pointer-events: auto !important;
+}
+
+
+/* =========================================================
+   📱 CELULAR
+   ========================================================= */
+
+@media (max-width: 500px) {
+
+    #escena1 {
+        height: 100dvh !important;
+        min-height: 100dvh !important;
+
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    #escena1::after {
+
+        height: 180px;
+
+        margin-top: 100dvh;
+    }
+
+    #escena1 .boton-comenzar {
+
+        top: calc(100dvh + 40px) !important;
+
+        width: min(280px, 82%);
+
+    }
+}
+
+
+/* =========================================================
+   📱 IPHONE PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    #escena1::after {
+
+        height: 160px;
+
+        margin-top: 100dvh;
+    }
+
+    #escena1 .boton-comenzar {
+
+        top: calc(100dvh + 35px) !important;
+
+        width: 84%;
+
+    }
+}
