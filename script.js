@@ -217,7 +217,6 @@ if (boton) {
 
 }
 
-
 /* =========================================================
    INICIAR
    ========================================================= */
@@ -252,7 +251,6 @@ document.addEventListener(
 
     }
 );
-
 
 /* =========================================================
    🎁 REGALO SORPRESA — 25 TOQUES
@@ -317,165 +315,232 @@ if (botonSorpresa) {
             toquesRegalo = 0;
 
             regaloExplotando = false;
-                        /* ==========================================
-               SI YA ESTÁ EXPLOTANDO
+
+
+            /* ==========================================
+               REACTIVAR REGALO
                ========================================== */
 
-            if (regaloExplotando) {
-                return;
+            if (regaloSorpresa) {
+
+                regaloSorpresa.disabled =
+                    false;
+
+                regaloSorpresa.style.pointerEvents =
+                    "auto";
+
             }
 
 
             /* ==========================================
-               CONTAR TOQUE
+               ACTIVAR PORTAL
+               ========================================== */
+
+            if (portal) {
+
+                portal.classList.remove(
+                    "explotando"
+                );
+
+                portal.classList.remove(
+                    "pasar-fotos"
+                );
+
+                portal.classList.add(
+                    "activa"
+                );
+
+            }
+
+
+            /* ==========================================
+               OCULTAR SORPRESA ANTERIOR
+               ========================================== */
+
+            if (sorpresaFinal) {
+
+                sorpresaFinal.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   🎁 TOCAR REGALO
+   ========================================================= */
+
+if (regaloSorpresa) {
+
+    regaloSorpresa.addEventListener(
+        "click",
+        () => {
+
+            if (regaloExplotando) return;
+
+
+            /* ==========================================
+               SUMAR TOQUE
                ========================================== */
 
             toquesRegalo++;
 
 
             console.log(
-                "🎁 TOQUE:",
-                toquesRegalo,
-                "/ 25"
+                `🎁 TOQUE ${toquesRegalo}/25`
             );
 
 
             /* ==========================================
-               PEQUEÑO EFECTO DEL REGALO
+               OBTENER CAJA DEL REGALO
                ========================================== */
 
-            if (regaloSorpresa) {
-
-                regaloSorpresa.style.transform =
-                    `scale(${1 + toquesRegalo * 0.008})`;
-
-            }
-
-
-            /* ==========================================
-               DESTELLO DEL PORTAL
-               ========================================== */
-
-            if (
-                toquesRegalo === 5 ||
-                toquesRegalo === 10 ||
-                toquesRegalo === 15 ||
-                toquesRegalo === 20
-            ) {
-
-                if (portal) {
-
-                    portal.classList.remove(
-                        "pulso"
-                    );
-
-                    void portal.offsetWidth;
-
-                    portal.classList.add(
-                        "pulso"
-                    );
-
-                }
-
-            }
-
-
-            /* ==========================================
-               LLEGAR A 25 TOQUES
-               ========================================== */
-
-            if (toquesRegalo >= 25) {
-
-                regaloExplotando = true;
-
-
-                console.log(
-                    "💥 REGALO EXPLOTANDO"
+            const regalo =
+                regaloSorpresa.querySelector(
+                    ".regalo"
                 );
 
 
+            if (regalo) {
+
                 /* ======================================
-                   DESACTIVAR BOTÓN
+                   DETENER ANIMACIÓN NORMAL
                    ====================================== */
 
-                botonSorpresa.disabled =
-                    true;
-
-                botonSorpresa.style.pointerEvents =
+                regalo.style.animation =
                     "none";
 
 
                 /* ======================================
-                   ACTIVAR PORTAL
+                   INTENSIDAD
                    ====================================== */
 
-                if (portal) {
+                const progreso =
+                    toquesRegalo / 25;
 
-                    portal.classList.add(
-                        "activa"
-                    );
 
-                }
+                const intensidad =
+                    2 +
+                    progreso * 12;
 
 
                 /* ======================================
-                   EXPLOSIÓN
+                   PRIMER MOVIMIENTO
                    ====================================== */
 
-                setTimeout(
-                    () => {
+                const x1 =
+                    (Math.random() - 0.5) *
+                    intensidad;
 
-                        if (explosionRegalo) {
 
-                            explosionRegalo.classList.add(
-                                "activa"
-                            );
+                const y1 =
+                    (Math.random() - 0.5) *
+                    intensidad;
 
-                        }
 
-                    },
-                    500
-                );
+                const rotacion1 =
+                    (Math.random() - 0.5) *
+                    (4 + progreso * 18);
+
+
+                regalo.style.transform =
+                    `
+                    translate(
+                        ${x1}px,
+                        ${y1}px
+                    )
+                    rotate(${rotacion1}deg)
+                    scale(1.02)
+                    `;
 
 
                 /* ======================================
-                   OCULTAR REGALO
+                   SEGUNDO MOVIMIENTO
                    ====================================== */
 
-                setTimeout(
-                    () => {
+                setTimeout(() => {
 
-                        if (regaloSorpresa) {
+                    if (regaloExplotando)
+                        return;
 
-                            regaloSorpresa.classList.add(
-                                "oculto"
-                            );
 
-                        }
+                    const x2 =
+                        (Math.random() - 0.5) *
+                        intensidad;
 
-                    },
-                    900
-                );
+
+                    const y2 =
+                        (Math.random() - 0.5) *
+                        intensidad;
+
+
+                    const rotacion2 =
+                        (Math.random() - 0.5) *
+                        (4 + progreso * 18);
+
+
+                    regalo.style.transform =
+                        `
+                        translate(
+                            ${x2}px,
+                            ${y2}px
+                        )
+                        rotate(${rotacion2}deg)
+                        scale(1.01)
+                        `;
+
+                }, 90);
 
 
                 /* ======================================
-                   MOSTRAR SORPRESA FINAL
+                   VOLVER AL CENTRO
                    ====================================== */
 
-                setTimeout(
-                    () => {
+                setTimeout(() => {
 
-                        if (sorpresaFinal) {
+                    if (regaloExplotando)
+                        return;
 
-                            sorpresaFinal.classList.add(
-                                "activa"
-                            );
 
-                        }
+                    regalo.style.transform =
+                        "translate(0,0) rotate(0deg) scale(1)";
 
-                    },
-                    1800
-                );
+
+                    regalo.style.animation =
+                        "regaloRespira 4s ease-in-out infinite";
+
+                }, 260);
+
+            }
+
+
+            /* ==========================================
+               ✨ CONFETI
+               ========================================== */
+
+            crearConfetiRegalo();
+
+
+            /* ==========================================
+               ✦ DESTELLO
+               ========================================== */
+
+            crearDestelloToque();
+
+
+            /* ==========================================
+               💥 TOQUE 25
+               ========================================== */
+
+            if (toquesRegalo >= 25) {
+
+                explotarRegalo();
 
             }
 
@@ -484,63 +549,416 @@ if (botonSorpresa) {
 
 }
 /* =========================================================
-   🌌 PORTAL — TRANSICIÓN SORPRESA
+   ✨ CONFETI DE CADA TOQUE
    ========================================================= */
 
-if (portal) {
+function crearConfetiRegalo() {
 
-    portal.addEventListener(
-        "animationend",
-        () => {
+    if (!portal) return;
 
-            portal.classList.remove(
-                "pulso"
-            );
 
-        }
-    );
+    const cantidad = 25;
+
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+
+        const confeti =
+            document.createElement("span");
+
+
+        confeti.className =
+            "confeti-regalo";
+
+
+        /* ==========================================
+           SÍMBOLOS
+           ========================================== */
+
+        const simbolos = [
+            "✦",
+            "✧",
+            "♥",
+            "♡",
+            "✶",
+            "•"
+        ];
+
+
+        confeti.textContent =
+            simbolos[
+                Math.floor(
+                    Math.random() *
+                    simbolos.length
+                )
+            ];
+
+
+        /* ==========================================
+           POSICIÓN CERCA DEL REGALO
+           ========================================== */
+
+        const posicionX =
+            (Math.random() - 0.5) *
+            130;
+
+
+        const posicionY =
+            (Math.random() - 0.5) *
+            100;
+
+
+        confeti.style.left =
+            `calc(50% + ${posicionX}px)`;
+
+
+        confeti.style.top =
+            `calc(50% + ${posicionY}px)`;
+
+
+        /* ==========================================
+           DIRECCIÓN
+           ========================================== */
+
+        const destinoX =
+            (Math.random() - 0.5) *
+            180;
+
+
+        const destinoY =
+            -(40 + Math.random() * 120);
+
+
+        confeti.style.setProperty(
+            "--confeti-x",
+            `${destinoX}px`
+        );
+
+
+        confeti.style.setProperty(
+            "--confeti-y",
+            `${destinoY}px`
+        );
+
+
+        /* ==========================================
+           ROTACIÓN
+           ========================================== */
+
+        confeti.style.setProperty(
+            "--confeti-rotacion",
+            `${Math.random() * 500 - 250}deg`
+        );
+
+
+        /* ==========================================
+           TAMAÑO
+           ========================================== */
+
+        confeti.style.fontSize =
+            `${12 + Math.random() * 14}px`;
+
+
+        /* ==========================================
+           PEQUEÑA VARIACIÓN
+           ========================================== */
+
+        confeti.style.animationDelay =
+            `${Math.random() * 0.08}s`;
+
+
+        /* ==========================================
+           AGREGAR
+           ========================================== */
+
+        portal.appendChild(
+            confeti
+        );
+
+
+        /* ==========================================
+           ELIMINAR
+           ========================================== */
+
+        setTimeout(() => {
+
+            confeti.remove();
+
+        }, 1000);
+
+    }
 
 }
 
 
 /* =========================================================
-   🎁 CREAR PARTÍCULAS DEL REGALO
+   ✨ DESTELLO DE CADA TOQUE
    ========================================================= */
 
-function crearParticulasRegalo() {
+function crearDestelloToque() {
 
-    if (!explosionRegalo) {
-        return;
+    if (!portal) return;
+
+
+    const destello =
+        document.createElement("span");
+
+
+    destello.className =
+        "destello-toque";
+
+
+    destello.textContent =
+        "✦";
+
+
+    destello.style.left =
+        "50%";
+
+
+    destello.style.top =
+        "50%";
+
+
+    portal.appendChild(
+        destello
+    );
+
+
+    setTimeout(() => {
+
+        destello.remove();
+
+    }, 500);
+
+}
+/* =========================================================
+   💥 EXPLOSIÓN FINAL DEL REGALO
+   ========================================================= */
+
+function explotarRegalo() {
+
+    if (regaloExplotando) return;
+
+
+    regaloExplotando = true;
+
+
+    console.log(
+        "💥 REGALO EXPLOTANDO"
+    );
+
+
+    /* ==========================================
+       BLOQUEAR MÁS TOQUES
+       ========================================== */
+
+    if (regaloSorpresa) {
+
+        regaloSorpresa.disabled =
+            true;
+
+        regaloSorpresa.style.pointerEvents =
+            "none";
+
     }
 
 
-    const simbolos = [
+    /* ==========================================
+       ACTIVAR EXPLOSIÓN
+       ========================================== */
 
-        "❤️",
-        "💗",
-        "💖",
-        "💕",
-        "✨",
-        "💫",
-        "🌸"
+    if (portal) {
 
-    ];
+        portal.classList.add(
+            "explotando"
+        );
+
+    }
+
+
+    /* ==========================================
+       💥 GRAN EXPLOSIÓN
+       ========================================== */
+
+    crearExplosionRegalo();
+
+
+    /* ==========================================
+       ❤️ MOSTRAR "SOU EU"
+       ========================================== */
+
+    setTimeout(() => {
+
+        if (sorpresaFinal) {
+
+            sorpresaFinal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+        }
+
+    }, 650);
+
+
+    /* ==========================================
+       ⏳ CONFIRMAR SORPRESA
+       ========================================== */
+
+    setTimeout(() => {
+
+        console.log(
+            "❤️ SORPRESA MOSTRADA"
+        );
+
+    }, 1200);
+
+
+/* =========================================================
+   🌌 TRANSICIÓN — SOU EU → NUESTROS MOMENTOS
+   ========================================================= */
+
+setTimeout(() => {
+
+    /* ==========================================
+       CREAR TRANSICIÓN
+       ========================================== */
+
+    let transicionFotos =
+        document.getElementById(
+            "transicionFotos"
+        );
+
+
+    if (!transicionFotos) {
+
+        transicionFotos =
+            document.createElement("div");
+
+        transicionFotos.id =
+            "transicionFotos";
+
+        transicionFotos.innerHTML = `
+
+            <div class="transicion-fotos-brillo"></div>
+
+            <div class="transicion-fotos-texto">
+                <span>❤️</span>
+            </div>
+
+        `;
+
+        document.body.appendChild(
+            transicionFotos
+        );
+
+    }
+
+
+    /* ==========================================
+       🌑 COMENZAR TRANSICIÓN
+       ========================================== */
+
+    transicionFotos.classList.add(
+        "activa"
+    );
+
+
+    /* ==========================================
+       🎁 OCULTAR SOU EU
+       ========================================== */
+
+    setTimeout(() => {
+
+        const transicionSorpresa =
+            document.getElementById(
+                "transicionSorpresa"
+            );
+
+        if (transicionSorpresa) {
+
+            transicionSorpresa.classList.remove(
+                "activa"
+            );
+
+        }
+
+
+        /* ======================================
+           📸 ACTIVAR ESCENA 3
+           ====================================== */
+
+        if (escena3) {
+
+            escena3.classList.add(
+                "activa"
+            );
+
+        }
+
+    }, 1800);
+
+
+    /* ==========================================
+       ✨ REVELAR FOTOS
+       ========================================== */
+
+    setTimeout(() => {
+
+        transicionFotos.classList.remove(
+            "activa"
+        );
+
+    }, 3300);
+
+
+}, 5000);
+
+}
+
+
+/* =========================================================
+   💥 CREAR GRAN EXPLOSIÓN
+   ========================================================= */
+
+function crearExplosionRegalo() {
+
+    if (!portal) return;
+
+
+    const cantidad = 70;
 
 
     for (
         let i = 0;
-        i < 45;
+        i < cantidad;
         i++
     ) {
 
         const particula =
-            document.createElement(
-                "span"
-            );
+            document.createElement("span");
 
 
         particula.className =
             "particula-regalo";
+
+
+        /* ==========================================
+           SÍMBOLOS
+           ========================================== */
+
+        const simbolos = [
+            "♥",
+            "♡",
+            "✦",
+            "✧",
+            "✶",
+            "•"
+        ];
 
 
         particula.textContent =
@@ -552,6 +970,21 @@ function crearParticulasRegalo() {
             ];
 
 
+        /* ==========================================
+           CENTRO
+           ========================================== */
+
+        particula.style.left =
+            "50%";
+
+        particula.style.top =
+            "50%";
+
+
+        /* ==========================================
+           DIRECCIÓN
+           ========================================== */
+
         const angulo =
             Math.random() *
             Math.PI *
@@ -559,454 +992,649 @@ function crearParticulasRegalo() {
 
 
         const distancia =
-            80 +
+            120 +
             Math.random() *
-            220;
+            320;
 
 
         const x =
-            Math.cos(
-                angulo
-            ) *
+            Math.cos(angulo) *
             distancia;
 
 
         const y =
-            Math.sin(
-                angulo
-            ) *
+            Math.sin(angulo) *
             distancia;
 
 
+        /* ==========================================
+           VARIABLES CSS
+           ========================================== */
+
         particula.style.setProperty(
-            "--x",
+            "--explosion-x",
             `${x}px`
         );
 
 
         particula.style.setProperty(
-            "--y",
+            "--explosion-y",
             `${y}px`
         );
 
 
         particula.style.setProperty(
-            "--rotacion",
-            `${-180 + Math.random() * 360}deg`
+            "--explosion-rotacion",
+            `${Math.random() * 720 - 360}deg`
         );
 
 
-        particula.style.setProperty(
-            "--duracion",
-            `${1.2 + Math.random() * 1.2}s`
-        );
+        /* ==========================================
+           TAMAÑO
+           ========================================== */
+
+        particula.style.fontSize =
+            `${12 + Math.random() * 25}px`;
 
 
-        particula.style.setProperty(
-            "--retraso",
-            `${Math.random() * .3}s`
-        );
+        /* ==========================================
+           RETRASO
+           ========================================== */
+
+        particula.style.animationDelay =
+            `${Math.random() * 0.15}s`;
 
 
-        explosionRegalo.appendChild(
+        /* ==========================================
+           AGREGAR
+           ========================================== */
+
+        portal.appendChild(
             particula
         );
 
+
+        /* ==========================================
+           ELIMINAR
+           ========================================== */
+
+        setTimeout(() => {
+
+            particula.remove();
+
+        }, 1500);
+
     }
 
 }
-
-
 /* =========================================================
-   🎁 OBSERVAR EXPLOSIÓN
-   ========================================================= */
-
-if (explosionRegalo) {
-
-    const observadorExplosion =
-        new MutationObserver(
-            () => {
-
-                if (
-                    explosionRegalo.classList.contains(
-                        "activa"
-                    ) &&
-                    !explosionRegalo.dataset.creada
-                ) {
-
-                    explosionRegalo.dataset.creada =
-                        "true";
-
-
-                    crearParticulasRegalo();
-
-                }
-
-            }
-        );
-
-
-    observadorExplosion.observe(
-        explosionRegalo,
-        {
-            attributes: true,
-            attributeFilter: [
-                "class"
-            ]
-        }
-    );
-
-}
-
-
-/* =========================================================
-   💕 MENSAJE FINAL
-   ========================================================= */
-
-function mostrarMensajeFinal() {
-
-    const mensaje =
-        document.getElementById(
-            "mensajeFinal"
-        );
-
-
-    if (!mensaje) {
-        return;
-    }
-
-
-    mensaje.classList.add(
-        "activo"
-    );
-
-}
-
-
-/* =========================================================
-   OBSERVAR SORPRESA FINAL
-   ========================================================= */
-
-if (sorpresaFinal) {
-
-    const observadorFinal =
-        new MutationObserver(
-            () => {
-
-                if (
-                    sorpresaFinal.classList.contains(
-                        "activa"
-                    )
-                ) {
-
-                    setTimeout(
-                        () => {
-
-                            mostrarMensajeFinal();
-
-                        },
-                        1200
-                    );
-
-                }
-
-            }
-        );
-
-
-    observadorFinal.observe(
-        sorpresaFinal,
-        {
-            attributes: true,
-            attributeFilter: [
-                "class"
-            ]
-        }
-    );
-
-}
-/* =========================================================
-   📸 ESCENA 3 — MOMENTOS
+   📸 ESCENA 3 — FOTOS ❤️📸
    ========================================================= */
 
 const escena3 =
-    document.getElementById(
-        "escena3"
+    document.getElementById("escena3");
+
+const fotoMomento =
+    document.getElementById("fotoMomento");
+
+const imagenMomento =
+    document.getElementById("imagenMomento");
+
+const textoMomento =
+    document.getElementById("textoMomento");
+
+const mensajeMomento =
+    document.getElementById("mensajeMomento");
+
+const indicadores =
+    document.querySelectorAll(
+        "#indicadorMomentos span"
     );
 
 
 /* =========================================================
-   ELEMENTOS DE MOMENTOS
+   📸 FOTOS + MENSAJES
    ========================================================= */
 
-const momentos =
-    document.querySelectorAll(
-        ".momento"
+const momentos = [
+
+    {
+        foto: "foto1.png",
+        mensaje:
+            "Cada momento contigo es muito especial. ❤️✨"
+    },
+
+    {
+        foto: "foto2.png",
+        mensaje:
+            "Mismo cuando estamos lejos... 🥺"
+    },
+
+    {
+        foto: "foto3.png",
+        mensaje:
+            "Com você, todo es más divertido. 😂❤️"
+    },
+
+    {
+        foto: "foto4.png",
+        mensaje:
+            "Y mismo lejos... 🥺"
+    },
+
+    {
+        foto: "foto5.png",
+        mensaje:
+            "Você consegue estar muitooo perto de mim. ❤️"
+    },
+
+    {
+        foto: "foto6.png",
+        mensaje:
+            "Eu espero continuar teniendo estos recuerdos por el momento, para que después, cuando vivamos juntos, lembremos de los días de las videollamadas. 🥹❤️"
+    }
+
+];
+
+
+/* =========================================================
+   📦 PRECARGAR TODAS LAS FOTOS
+   ========================================================= */
+
+function precargarFotos() {
+
+    momentos.forEach(
+        (momento) => {
+
+            const imagen =
+                new Image();
+
+            imagen.src =
+                momento.foto;
+
+        }
     );
 
+}
+
+
+precargarFotos();
+
+
+/* =========================================================
+   📍 MOMENTO ACTUAL
+   ========================================================= */
 
 let momentoActual = 0;
 
 
 /* =========================================================
-   INICIAR MOMENTOS
+   📸 MOSTRAR MOMENTO
+   ========================================================= */
+
+function mostrarMomento(indice) {
+
+    if (!momentos[indice]) return;
+
+    const momento =
+        momentos[indice];
+
+
+    if (
+        !imagenMomento ||
+        !fotoMomento
+    ) {
+
+        return;
+
+    }
+
+
+    /* ==========================================
+       ✨ SALIDA
+       ========================================== */
+
+    fotoMomento.classList.remove(
+        "apareciendo"
+    );
+
+    fotoMomento.classList.add(
+        "cambiando"
+    );
+
+
+    /* ==========================================
+       📝 CAMBIAR CONTENIDO
+       ========================================== */
+
+    setTimeout(() => {
+
+        imagenMomento.src =
+            momento.foto;
+
+
+        if (mensajeMomento) {
+
+            mensajeMomento.textContent =
+                momento.mensaje;
+
+        }
+
+
+        /* ======================================
+           ✦ INDICADOR
+           ====================================== */
+
+        indicadores.forEach(
+            (indicador, i) => {
+
+                indicador.classList.toggle(
+                    "activo",
+                    i === indice
+                );
+
+            }
+        );
+
+
+        /* ======================================
+           ✨ ENTRADA
+           ====================================== */
+
+        fotoMomento.classList.remove(
+            "cambiando"
+        );
+
+        void fotoMomento.offsetWidth;
+
+        fotoMomento.classList.add(
+            "apareciendo"
+        );
+
+
+    }, 280);
+
+}
+
+/* =========================================================
+   📸 INICIAR LOS MOMENTOS
    ========================================================= */
 
 function iniciarMomentos() {
 
-    if (!momentos.length) {
-        return;
-    }
-
+    console.log(
+        "📸 INICIANDO NUESTROS MOMENTOS"
+    );
 
     momentoActual = 0;
 
 
-    momentos.forEach(
-        (momento, index) => {
+    /* ==========================================
+       FOTO 1
+       ========================================== */
 
-            momento.classList.remove(
-                "activo"
+    if (imagenMomento) {
+
+        imagenMomento.src =
+            momentos[0].foto;
+
+    }
+
+
+    /* ==========================================
+       MENSAJE 1
+       ========================================== */
+
+    if (mensajeMomento) {
+
+        mensajeMomento.textContent =
+            momentos[0].mensaje;
+
+    }
+
+
+    /* ==========================================
+       INDICADOR
+       ========================================== */
+
+    indicadores.forEach(
+        (indicador, i) => {
+
+            indicador.classList.toggle(
+                "activo",
+                i === 0
             );
-
-
-            if (index === 0) {
-
-                momento.classList.add(
-                    "activo"
-                );
-
-            }
 
         }
     );
 
 
+    /* ==========================================
+       ANIMACIÓN INICIAL
+       ========================================== */
+
+    if (fotoMomento) {
+
+        fotoMomento.classList.remove(
+            "cambiando"
+        );
+
+        fotoMomento.classList.add(
+            "apareciendo"
+        );
+
+    }
+
+
+    /* ==========================================
+       CAMBIAR CADA 5 SEGUNDOS
+       ========================================== */
+
+    const intervaloMomentos =
+        setInterval(() => {
+
+            momentoActual++;
+
+
+            /* ======================================
+               ❤️ TERMINARON LOS 6 MOMENTOS
+               ====================================== */
+
+            if (
+                momentoActual >=
+                momentos.length
+            ) {
+
+                clearInterval(
+                    intervaloMomentos
+                );
+
+                console.log(
+                    "❤️ TERMINARON LOS 6 MOMENTOS"
+                );
+
+
+                    /* ==================================
+                    🖤 PASAR A LOS MENSAJES FINALES
+                    ================================== */
+
+                    setTimeout(() => {
+
+                        iniciarMensajesFinales();
+
+                    }, 1000);
+
+
+                    return;
+
+                }
+
+
+                /* ======================================
+                📸 SIGUIENTE FOTO
+                ====================================== */
+
+                mostrarMomento(
+                    momentoActual
+                );
+
+
+            }, 5000);
+
+    }
+
+ /* =========================================================
+   🖤 MENSAJE FINAL — SE VA LLENANDO
+   ========================================================= */
+
+function iniciarMensajesFinales() {
+
     console.log(
-        "📸 MOMENTOS INICIADOS"
+        "🖤 INICIANDO MENSAJE FINAL"
     );
 
-}
+
+    /* =====================================================
+       ❤️ MENSAJES
+       ===================================================== */
+
+    const mensajes = [
+
+        `Feliz Cumpleaños, Meu Amor ❤️`,
+
+        `Hoy es un día muy especial porque es el día en que naciste, “mi amor de mi vida”.`,
+
+        `Estoy un poco triste por no estar ahí contigo personalmente, pero vas a ver que ya no faltará mucho para que acabe esta distancia.`,
+
+        `Quiero poder verte de una vez para pasar el tiempo juntos y, cuando se pueda, conversar sobre todo lo que hemos pasado. Pero quiero hacerte recordar que vamos a conseguirlo juntos, que vamos a mejorar los dos mutuamente, ayudándonos.`,
+
+        `Sabes que eu te amoooooooooooooo muitoooooooooooooo. Ya estás vieja, shiiiiiii, y yo sigo joven como siempre, kkkkk. 😂❤️`,
+
+        `Pero bueno, amor, espero que la pases bien con tu familia y, obviamente, conmigo, né.`,
+
+        `Intenta no comer mucho dulce, hein. “Estoy observándote, bonita”. 👀❤️`,
+
+        `En serio, te extraño demasiado. La distancia es muy difícil para mí. Todos los días pienso en você.`,
+
+        `Sinceramente, por eso me reprocho mucho no poder hacerme millonario rápido, porque si lo hago lento, será mucho más tiempo el que tenga que estar lejos de ti.`,
+
+        `Estoy muy ansioso por poder verte en persona y también tengo nervios, porque será como la primera vez que te vi, kkkkk. Voy a estar muy avergonzado.`,
+
+        `Y no olvidemos que también vamos a tener una experiencia nueva, que sería viajar juntos.`,
+
+        `Siempre veía videos en TikTok y soñaba con poder hacerlo contigo, y ahora saber que ya falta poco me tiene muy ansioso.`,
+
+        `Va a ser el primero de muchos viajes más, te lo prometo, amor.`,
+
+        `Vamos a conocer el mundo entero. ❤️`,
+
+        `Y no olvides que el próximo año, en tu cumpleaños, voy a estar contigo personalmente. ❤️`
+
+    ];
 
 
-/* =========================================================
-   SIGUIENTE MOMENTO
-   ========================================================= */
+    /* =====================================================
+       🖤 CREAR PANTALLA FINAL
+       ===================================================== */
 
-function siguienteMomento() {
-
-    if (!momentos.length) {
-        return;
-    }
-
-
-    if (
-        momentoActual <
-        momentos.length - 1
-    ) {
-
-        momentos[
-            momentoActual
-        ].classList.remove(
-            "activo"
+    let transicion =
+        document.getElementById(
+            "transicionMensajes"
         );
 
 
-        momentoActual++;
+    if (!transicion) {
 
+        transicion =
+            document.createElement("div");
 
-        momentos[
-            momentoActual
-        ].classList.add(
-            "activo"
-        );
+        transicion.id =
+            "transicionMensajes";
 
+        transicion.innerHTML = `
 
-        console.log(
-            "📸 MOMENTO:",
-            momentoActual + 1,
-            "/",
-            momentos.length
-        );
+            <div class="mensajes-finales-scroll">
 
-    }
+                <div class="mensajes-finales-lista"></div>
 
-}
+                <div
+                    class="corazones-finales"
+                    aria-hidden="true">
+                </div>
 
+            </div>
 
-/* =========================================================
-   MOMENTO ANTERIOR
-   ========================================================= */
+        `;
 
-function momentoAnterior() {
-
-    if (!momentos.length) {
-        return;
-    }
-
-
-    if (
-        momentoActual > 0
-    ) {
-
-        momentos[
-            momentoActual
-        ].classList.remove(
-            "activo"
-        );
-
-
-        momentoActual--;
-
-
-        momentos[
-            momentoActual
-        ].classList.add(
-            "activo"
-        );
-
-
-        console.log(
-            "📸 MOMENTO:",
-            momentoActual + 1,
-            "/",
-            momentos.length
+        document.body.appendChild(
+            transicion
         );
 
     }
 
-}
 
-
-/* =========================================================
-   CLIC EN MOMENTOS
-   ========================================================= */
-
-momentos.forEach(
-    (momento) => {
-
-        momento.addEventListener(
-            "click",
-            () => {
-
-                siguienteMomento();
-
-            }
+    const lista =
+        transicion.querySelector(
+            ".mensajes-finales-lista"
         );
 
-    }
-);
+    const corazones =
+        transicion.querySelector(
+            ".corazones-finales"
+        );
 
 
-/* =========================================================
-   TECLADO
-   ========================================================= */
+    /* =====================================================
+       🧹 LIMPIAR
+       ===================================================== */
 
-document.addEventListener(
-    "keydown",
-    (evento) => {
+    lista.innerHTML = "";
+    corazones.innerHTML = "";
+
+
+    /* =====================================================
+       🌑 ACTIVAR NEGRO
+       ===================================================== */
+
+    transicion.classList.add(
+        "activa"
+    );
+
+
+    /* =====================================================
+       ✍️ AGREGAR PÁRRAFOS
+       ===================================================== */
+
+    let indice = 0;
+
+
+    function agregarSiguienteMensaje() {
+
+        /* ================================================
+           ❤️ TERMINARON LOS 15
+           ================================================ */
 
         if (
-            !escena3 ||
-            !escena3.classList.contains(
-                "activa"
-            )
+            indice >=
+            mensajes.length
         ) {
+
+            console.log(
+                "❤️ TERMINARON TODOS LOS MENSAJES"
+            );
+
+
+            /* ============================================
+               ❤️ EMPEZAR CORAZONES
+               ============================================ */
+
+            iniciarCorazonesFinales();
 
             return;
 
         }
 
 
+        /* ================================================
+           CREAR PÁRRAFO
+           ================================================ */
+
+        const parrafo =
+            document.createElement("p");
+
+
+        parrafo.className =
+            "parrafo-final";
+
+
         if (
-            evento.key ===
-            "ArrowRight"
+            indice === 0
         ) {
 
-            siguienteMomento();
+            parrafo.classList.add(
+                "parrafo-principal"
+            );
 
         }
 
 
         if (
-            evento.key ===
-            "ArrowLeft"
+            indice ===
+            mensajes.length - 1
         ) {
 
-            momentoAnterior();
+            parrafo.classList.add(
+                "parrafo-final-ultimo"
+            );
 
         }
 
-    }
-);
+
+        parrafo.textContent =
+            mensajes[indice];
 
 
-/* =========================================================
-   👀 OBSERVAR CUÁNDO ENTRA ESCENA 3
-   ========================================================= */
-
-if (escena3) {
-
-    const observadorEscena3 =
-        new MutationObserver(
-            () => {
-
-                if (
-                    escena3.classList.contains(
-                        "activa"
-                    ) &&
-                    !escena3.dataset.momentosIniciados
-                ) {
-
-                    escena3.dataset.momentosIniciados =
-                        "true";
-
-
-                    console.log(
-                        "📸 ESCENA 3 INICIADA"
-                    );
-
-
-                    iniciarMomentos();
-
-                }
-
-            }
+        lista.appendChild(
+            parrafo
         );
 
 
-    observadorEscena3.observe(
-        escena3,
-        {
-            attributes: true,
-            attributeFilter: [
-                "class"
-            ]
-        }
-    );
+        /* ================================================
+           ✨ APARECER
+           ================================================ */
 
-}   
+        requestAnimationFrame(() => {
 
-/* =========================================================
-   💖 CORAZONES FINALES
-   ========================================================= */
+            parrafo.classList.add(
+                "visible"
+            );
+
+        });
+
+
+        indice++;
+
+
+
+        /* =====================================================
+   ⏱️ TIEMPO DE CADA PÁRRAFO
+   ===================================================== */
+
+const tiemposMensajes = [
+
+    4500,  // 1
+    5000,  // 2
+    5500,  // 3
+    7500,  // 4
+    6000,  // 5
+    4500,  // 6
+    5000,  // 7
+    5000,  // 8
+    6500,  // 9
+    7000,  // 10
+    5000,  // 11
+    6000,  // 12
+    4500,  // 13
+    4000,  // 14
+    7000   // 15
+];
+
+
+setTimeout(
+    agregarSiguienteMensaje,
+    tiemposMensajes[indice - 1]
+);
+
+}
+/* =====================================================
+   ❤️ CORAZONES
+   ===================================================== */
 
 function iniciarCorazonesFinales() {
 
     console.log(
         "❤️ INICIANDO LLUVIA DE CORAZONES"
     );
-
-
-    const corazones =
-        document.getElementById(
-            "corazones"
-        );
-
-
-    if (!corazones) {
-        return;
-    }
 
 
     const tipos = [
@@ -1022,7 +1650,8 @@ function iniciarCorazonesFinales() {
     ];
 
 
-    const cantidad = 180;
+    const cantidad =
+        180;
 
 
     for (
@@ -1032,9 +1661,7 @@ function iniciarCorazonesFinales() {
     ) {
 
         const corazon =
-            document.createElement(
-                "span"
-            );
+            document.createElement("span");
 
 
         corazon.className =
@@ -1050,7 +1677,9 @@ function iniciarCorazonesFinales() {
             ];
 
 
-        /* POSICIÓN INICIAL */
+        /* =================================================
+           🌬️ POSICIÓN INICIAL
+           ================================================= */
 
         corazon.style.setProperty(
             "--inicio-x",
@@ -1058,13 +1687,19 @@ function iniciarCorazonesFinales() {
         );
 
 
+        /* =================================================
+           📍 ALTURA INICIAL
+           ================================================= */
+
         corazon.style.setProperty(
             "--inicio-y",
             `${Math.random() * 120}px`
         );
 
 
-        /* TAMAÑO */
+        /* =================================================
+           💕 TAMAÑO
+           ================================================= */
 
         corazon.style.setProperty(
             "--tamanio",
@@ -1072,27 +1707,24 @@ function iniciarCorazonesFinales() {
         );
 
 
-        /* MOVIMIENTO HORIZONTAL */
+        /* =================================================
+           🌬️ MOVIMIENTO HORIZONTAL
+           ================================================= */
 
         const x1 =
-            -35 +
-            Math.random() * 70;
+            -35 + Math.random() * 70;
 
         const x2 =
-            -70 +
-            Math.random() * 140;
+            -70 + Math.random() * 140;
 
         const x3 =
-            -110 +
-            Math.random() * 220;
+            -110 + Math.random() * 220;
 
         const x4 =
-            -140 +
-            Math.random() * 280;
+            -140 + Math.random() * 280;
 
         const x5 =
-            -180 +
-            Math.random() * 360;
+            -180 + Math.random() * 360;
 
 
         corazon.style.setProperty(
@@ -1121,7 +1753,9 @@ function iniciarCorazonesFinales() {
         );
 
 
-        /* ROTACIÓN */
+        /* =================================================
+           🔄 ROTACIÓN NATURAL
+           ================================================= */
 
         corazon.style.setProperty(
             "--rotacion-inicial",
@@ -1154,7 +1788,9 @@ function iniciarCorazonesFinales() {
         );
 
 
-        /* OPACIDAD */
+        /* =================================================
+           ✨ OPACIDAD
+           ================================================= */
 
         corazon.style.setProperty(
             "--opacidad",
@@ -1162,7 +1798,9 @@ function iniciarCorazonesFinales() {
         );
 
 
-        /* VELOCIDAD */
+        /* =================================================
+           ⏱️ VELOCIDAD
+           ================================================= */
 
         corazon.style.setProperty(
             "--duracion",
@@ -1170,13 +1808,19 @@ function iniciarCorazonesFinales() {
         );
 
 
-        /* RETRASO */
+        /* =================================================
+           🕐 RETRASO
+           ================================================= */
 
         corazon.style.setProperty(
             "--retraso",
             `${Math.random() * 4}s`
         );
 
+
+        /* =================================================
+           ❤️ AGREGAR
+           ================================================= */
 
         corazones.appendChild(
             corazon
@@ -1192,162 +1836,53 @@ function iniciarCorazonesFinales() {
 }
 
 
-/* =========================================================
-   💕 ACTIVAR CORAZONES AL FINAL
-   ========================================================= */
+/* =====================================================
+   🚀 EMPEZAR
+   ================================================= */
 
-function activarFinal() {
+setTimeout(() => {
 
-    const mensajeFinal =
-        document.querySelector(
-            ".mensaje-final"
-        );
+    agregarSiguienteMensaje();
 
-
-    if (!mensajeFinal) {
-        return;
-    }
-
-
-    mensajeFinal.classList.add(
-        "activo"
-    );
-
-
-    setTimeout(
-        () => {
-
-            iniciarCorazonesFinales();
-
-        },
-        800
-    );
+}, 1000);
 
 }
 
-
 /* =========================================================
-   OBSERVAR MENSAJE FINAL
+   👀 OBSERVAR CUÁNDO ENTRA LA ESCENA 3
    ========================================================= */
 
-const mensajeFinal =
-    document.querySelector(
-        ".mensaje-final"
-    );
+if (escena3) {
 
+    const observadorEscena3 =
+        new MutationObserver(() => {
 
-if (mensajeFinal) {
+            if (
+                escena3.classList.contains("activa") &&
+                !escena3.dataset.momentosIniciados
+            ) {
 
-    const observadorMensajeFinal =
-        new MutationObserver(
-            () => {
+                escena3.dataset.momentosIniciados =
+                    "true";
 
-                if (
-                    mensajeFinal.classList.contains(
-                        "activo"
-                    ) &&
-                    !mensajeFinal.dataset.corazonesIniciados
-                ) {
+                console.log(
+                    "📸 ESCENA 3 INICIADA"
+                );
 
-                    mensajeFinal.dataset.corazonesIniciados =
-                        "true";
-
-
-                    activarFinal();
-
-                }
+                iniciarMomentos();
 
             }
-        );
+
+        });
 
 
-    observadorMensajeFinal.observe(
-        mensajeFinal,
+    observadorEscena3.observe(
+        escena3,
         {
             attributes: true,
-            attributeFilter: [
-                "class"
-            ]
+            attributeFilter: ["class"]
         }
     );
 
 }
 
-/* =========================================================
-   🔄 SEGURIDAD — EVITAR DUPLICAR ELEMENTOS
-   ========================================================= */
-
-window.addEventListener(
-    "load",
-    () => {
-
-        console.log(
-            "❤️ PÁGINA COMPLETAMENTE CARGADA"
-        );
-
-    }
-);
-
-
-/* =========================================================
-   🎂 CONTROL FINAL DE ESCENA
-   ========================================================= */
-
-const escenaFinal =
-    document.getElementById(
-        "escenaFinal"
-    );
-
-
-if (escenaFinal) {
-
-    const observadorEscenaFinal =
-        new MutationObserver(
-            () => {
-
-                if (
-                    escenaFinal.classList.contains(
-                        "activa"
-                    )
-                ) {
-
-                    console.log(
-                        "🎂 ESCENA FINAL ACTIVA"
-                    );
-
-                }
-
-            }
-        );
-
-
-    observadorEscenaFinal.observe(
-        escenaFinal,
-        {
-            attributes: true,
-            attributeFilter: [
-                "class"
-            ]
-        }
-    );
-
-}
-
-
-/* =========================================================
-   🛡️ EVITAR DOBLE EJECUCIÓN DE LA ESCENA 3
-   ========================================================= */
-
-if (
-    !window.__cumpleScriptInicializado
-) {
-
-    window.__cumpleScriptInicializado =
-        true;
-
-
-    console.log(
-        "❤️ CUMPLE-MEU AMOR — SCRIPT LISTO"
-    );
-
-}
