@@ -278,95 +278,110 @@ let regaloExplotando = false;
 
 
 /* =========================================================
-   BOTÓN SHI SHI SHI SORPRESA
+   🎁 BOTÓN SHI SHI SHI SORPRESA — PC + CELULAR
    ========================================================= */
 
 if (botonSorpresa) {
 
-    botonSorpresa.addEventListener(
-        "click",
-        () => {
+    let toqueProcesado = false;
 
-            console.log(
-                "🎁 REGALO ACTIVADO"
-            );
+    function activarSorpresa(e) {
 
+        if (toqueProcesado) return;
 
-            /* ==========================================
-               EFECTO DE PRESIÓN
-               ========================================== */
+        toqueProcesado = true;
 
-            botonSorpresa.style.transform =
-                "scale(.94)";
+        if (e) {
+            e.preventDefault();
+        }
 
+        console.log("🎁 REGALO ACTIVADO");
 
-            setTimeout(() => {
+        /* ==========================================
+           EFECTO DE PRESIÓN
+           ========================================== */
 
-                botonSorpresa.style.transform =
-                    "scale(1)";
+        botonSorpresa.style.transform = "scale(.94)";
 
-            }, 180);
-
-
-            /* ==========================================
-               REINICIAR REGALO
-               ========================================== */
-
-            toquesRegalo = 0;
-
-            regaloExplotando = false;
+        setTimeout(() => {
+            botonSorpresa.style.transform = "scale(1)";
+        }, 180);
 
 
-            /* ==========================================
-               REACTIVAR REGALO
-               ========================================== */
+        /* ==========================================
+           REINICIAR REGALO
+           ========================================== */
 
-            if (regaloSorpresa) {
-
-                regaloSorpresa.disabled =
-                    false;
-
-                regaloSorpresa.style.pointerEvents =
-                    "auto";
-
-            }
+        toquesRegalo = 0;
+        regaloExplotando = false;
 
 
-            /* ==========================================
-               ACTIVAR PORTAL
-               ========================================== */
+        /* ==========================================
+           REACTIVAR REGALO
+           ========================================== */
 
-            if (portal) {
+        if (regaloSorpresa) {
 
-                portal.classList.remove(
-                    "explotando"
-                );
+            regaloSorpresa.disabled = false;
 
-                portal.classList.remove(
-                    "pasar-fotos"
-                );
-
-                portal.classList.add(
-                    "activa"
-                );
-
-            }
-
-
-            /* ==========================================
-               OCULTAR SORPRESA ANTERIOR
-               ========================================== */
-
-            if (sorpresaFinal) {
-
-                sorpresaFinal.setAttribute(
-                    "aria-hidden",
-                    "true"
-                );
-
-            }
+            regaloSorpresa.style.pointerEvents = "auto";
 
         }
+
+
+        /* ==========================================
+           ACTIVAR PORTAL
+           ========================================== */
+
+        if (portal) {
+
+            portal.classList.remove("explotando");
+
+            portal.classList.remove("pasar-fotos");
+
+            portal.classList.add("activa");
+
+        }
+
+
+        /* ==========================================
+           OCULTAR SORPRESA ANTERIOR
+           ========================================== */
+
+        botonSorpresa.style.pointerEvents = "none";
+
+
+        /* ==========================================
+           SEGURIDAD PARA IPHONE
+           ========================================== */
+
+        setTimeout(() => {
+
+            toqueProcesado = false;
+
+        }, 700);
+
+    }
+
+
+    /* ==========================================
+       📱 IPHONE / ANDROID
+       ========================================== */
+
+    botonSorpresa.addEventListener(
+        "pointerup",
+        activarSorpresa,
+        { passive: false }
+    );
+
+
+    /* ==========================================
+       💻 PC
+       ========================================== */
+
+    botonSorpresa.addEventListener(
+        "click",
+        activarSorpresa
     );
 
 }

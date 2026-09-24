@@ -17408,3 +17408,44 @@ body {
         margin-bottom: 70px;
     }
 }
+
+/* =========================================================
+   📱 CORRECCIÓN DEFINITIVA — BOTÓN SORPRESA EN CELULAR
+   ========================================================= */
+
+#escena2 {
+    touch-action: pan-y;
+}
+
+#escena2 .escena2-contenido {
+    position: relative !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+}
+
+#escena2 .boton-sorpresa {
+    position: relative !important;
+    z-index: 100000 !important;
+    pointer-events: auto !important;
+
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+
+    cursor: pointer;
+}
+
+#escena2 .boton-sorpresa * {
+    pointer-events: none !important;
+}
+
+/* La transición NO puede bloquear la escena 2
+   mientras esté apagada */
+
+#transicionSorpresa:not(.activa) {
+    pointer-events: none !important;
+}
+
+#transicionMensajes:not(.activa) {
+    pointer-events: none !important;
+}
