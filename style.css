@@ -17917,3 +17917,47 @@ body {
     }
 
 }
+
+/* =========================================================
+   📱 SCROLL REAL — ESCENA 1
+   ========================================================= */
+
+.cumple {
+    height: 100dvh !important;
+    max-height: none !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    -webkit-overflow-scrolling: touch;
+
+    scroll-behavior: smooth;
+
+    position: relative;
+}
+
+
+/* Espacio extra para permitir desplazamiento */
+
+.cumple::after {
+    content: "";
+    display: block;
+
+    width: 100%;
+
+    height: 35vh;
+
+    pointer-events: none;
+}
+
+
+/* Ocultar barra pero mantener scroll */
+
+.cumple::-webkit-scrollbar {
+    width: 0;
+    display: none;
+}
+
+.cumple {
+    scrollbar-width: none;
+}
