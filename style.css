@@ -17250,78 +17250,408 @@ body {
 }
 
 /* =========================================================
-   📱 SCROLL — ESCENA 1 Y ESCENA 2
-   Permite bajar para ver los botones completos
+   📱 SCROLL — ESCENA 2
    ========================================================= */
 
-#escena1,
 #escena2 {
+    min-height: 100dvh;
+    height: auto;
     overflow-y: auto;
     overflow-x: hidden;
-
-    /* Permite desplazamiento suave */
-    scroll-behavior: smooth;
-
-    /* Evita que el contenido quede pegado al borde */
-    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    padding-bottom: 100px;
 }
+
+/* En celulares */
+@media (max-width: 500px) {
+
+    #escena2 {
+        min-height: 100dvh;
+        height: auto;
+        overflow-y: auto;
+        padding-bottom: 120px;
+    }
+
+    .escena2-contenido {
+        padding-bottom: 40px;
+    }
+
+    .boton-sorpresa {
+        margin-bottom: 30px;
+    }
+}
+
+/* =========================================================
+   📱 SCROLL REFORZADO — ESCENA 1 Y ESCENA 2
+   Compatible con iPhone / Safari / Chrome
+   ========================================================= */
 
 
 /* =========================================================
-   📱 ESCENA 1 — ESPACIO EXTRA PARA EL BOTÓN
+   🌹 ESCENA 1
    ========================================================= */
 
 #escena1 {
+
+    position: relative;
+
+    width: 100%;
+
     min-height: 100vh;
+    min-height: 100dvh;
+
+    height: auto;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
     box-sizing: border-box;
 
-    padding-bottom: 110px;
+    /*
+       Espacio extra para que el botón
+       nunca quede pegado al borde.
+    */
+    padding-bottom: 150px;
+
+    /*
+       Permite que el scroll tenga
+       suficiente recorrido.
+    */
+    overscroll-behavior-y: contain;
+
+    -webkit-overflow-scrolling: touch;
+
+    /*
+       Evita problemas con elementos
+       posicionados fuera del viewport.
+    */
+    contain: layout paint;
 }
 
 
 /* =========================================================
-   📱 ESCENA 2 — ESPACIO EXTRA PARA EL BOTÓN
+   🌹 CONTENIDO ESCENA 1
    ========================================================= */
 
-#escena2 {
-    min-height: 100vh;
-    box-sizing: border-box;
+#escena1 > * {
 
-    padding-bottom: 110px;
+    box-sizing: border-box;
 }
 
 
 /* =========================================================
-   📱 CELULARES
+   🔘 BOTÓN ESCENA 1
    ========================================================= */
 
-@media (max-width: 500px) {
+#escena1 .boton-comenzar {
 
-    #escena1,
-    #escena2 {
-        height: 100dvh;
+    position: absolute;
+
+    /*
+       Ya no queda pegado al final.
+       Siempre tendrá espacio debajo.
+    */
+    bottom: 35px;
+
+    left: 50%;
+
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   📱 ESCENA 1 — CELULARES
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    #escena1 {
+
         min-height: 100dvh;
+
+        /*
+           Altura automática para permitir
+           que el contenido genere scroll.
+        */
+        height: auto;
 
         overflow-y: auto;
         overflow-x: hidden;
 
-        padding-bottom: 130px;
+        padding-bottom: 180px;
 
         -webkit-overflow-scrolling: touch;
+    }
+
+    #escena1 .boton-comenzar {
+
+        bottom: 35px;
+
+        width: min(280px, 82%);
+
+    }
+}
+
+
+/* =========================================================
+   📱 IPHONE PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    #escena1 {
+
+        padding-bottom: 200px;
+
+    }
+
+    #escena1 .boton-comenzar {
+
+        bottom: 30px;
+
+        width: 82%;
+
+        height: 50px;
+
     }
 
 }
 
 
 /* =========================================================
-   📱 CELULARES MUY PEQUEÑOS
+   💌 ESCENA 2
+   ========================================================= */
+
+#escena2 {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    height: auto;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    box-sizing: border-box;
+
+    /*
+       MUCHO espacio inferior.
+       Esto garantiza que el botón
+       pueda quedar completamente visible.
+    */
+    padding-bottom: 180px;
+
+    overscroll-behavior-y: contain;
+
+    -webkit-overflow-scrolling: touch;
+
+    contain: layout paint;
+}
+
+
+/* =========================================================
+   💌 CONTENIDO ESCENA 2
+   ========================================================= */
+
+#escena2 .escena2-contenido {
+
+    position: relative;
+
+    z-index: 9999;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    /*
+       Espacio extra debajo de la carta.
+    */
+    padding-bottom: 80px;
+
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   🔘 BOTÓN SHI SHI SHI
+   ========================================================= */
+
+#escena2 .boton-sorpresa {
+
+    position: relative;
+
+    display: flex;
+
+    width: fit-content;
+
+    max-width: 90%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: 30px;
+
+    margin-bottom: 60px;
+
+    z-index: 10000;
+
+    pointer-events: auto;
+
+    cursor: pointer;
+
+    /*
+       Evita que el botón salga
+       horizontalmente de la pantalla.
+    */
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   📱 ESCENA 2 — CELULARES
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    #escena2 {
+
+        min-height: 100dvh;
+
+        height: auto;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        padding-bottom: 220px;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    #escena2 .escena2-contenido {
+
+        width: 100%;
+
+        padding-left: 18px;
+        padding-right: 18px;
+
+        padding-bottom: 100px;
+    }
+
+
+    #escena2 .boton-sorpresa {
+
+        width: min(90%, 330px);
+
+        min-height: 54px;
+
+        margin-top: 25px;
+
+        margin-bottom: 80px;
+
+        flex-shrink: 0;
+    }
+
+}
+
+
+/* =========================================================
+   📱 IPHONE PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    #escena2 {
+
+        padding-bottom: 250px;
+
+    }
+
+
+    #escena2 .escena2-contenido {
+
+        padding-left: 15px;
+        padding-right: 15px;
+
+        padding-bottom: 120px;
+    }
+
+
+    #escena2 .boton-sorpresa {
+
+        width: 88%;
+
+        min-height: 52px;
+
+        margin-top: 25px;
+
+        margin-bottom: 100px;
+
+    }
+
+}
+
+
+/* =========================================================
+   📱 PANTALLAS MUY BAJAS
    ========================================================= */
 
 @media (max-height: 700px) {
 
-    #escena1,
+    #escena1 {
+
+        padding-bottom: 220px;
+
+    }
+
+
     #escena2 {
-        padding-bottom: 160px;
+
+        padding-bottom: 260px;
+
+    }
+
+
+    #escena2 .boton-sorpresa {
+
+        margin-bottom: 110px;
+
+    }
+
+}
+
+
+/* =========================================================
+   📱 SAFE AREA — IPHONE
+   ========================================================= */
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+
+    #escena1 {
+
+        padding-bottom:
+            calc(180px + env(safe-area-inset-bottom));
+
+    }
+
+
+    #escena2 {
+
+        padding-bottom:
+            calc(220px + env(safe-area-inset-bottom));
+
+    }
+
+
+    #escena2 .boton-sorpresa {
+
+        margin-bottom:
+            calc(80px + env(safe-area-inset-bottom));
+
     }
 
 }
