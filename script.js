@@ -165,14 +165,9 @@ function iniciarEscena() {
 
 if (boton) {
 
-    boton.addEventListener(
-    "click",
-    () => {
+    boton.addEventListener("click", () => {
 
-        /* ============================================
-           🎵 INICIAR MÚSICA
-           ============================================ */
-
+        /* 🎵 INICIAR MÚSICA */
         const musica = document.getElementById("musicaCumple");
 
         if (musica) {
@@ -180,85 +175,47 @@ if (boton) {
             musica.play();
         }
 
+        /* EVITAR DOBLES CLICS */
+        boton.disabled = true;
+        boton.style.pointerEvents = "none";
 
-        /*
-        ============================================
-        EVITAR DOBLES CLICS
-        ============================================ */
+        /* EFECTO DE PRESIÓN */
+        boton.style.transform =
+            "translateX(-50%) scale(0.94)";
 
-            boton.disabled = true;
-
-            boton.style.pointerEvents =
-                "none";
-
-
-            /* ==========================================
-               EFECTO DE PRESIÓN
-               ========================================== */
+        setTimeout(() => {
 
             boton.style.transform =
-                "translateX(-50%) scale(0.94)";
+                "translateX(-50%) scale(1)";
 
+        }, 180);
 
-            setTimeout(
-                () => {
+        /* ACTIVAR TRANSICIÓN */
+        if (transicion) {
 
-                    boton.style.transform =
-                        "translateX(-50%) scale(1)";
+            transicion.classList.add("activa");
 
-                },
-                180
-            );
+        }
 
+        /* ENTRAR A ESCENA 2 */
+        setTimeout(() => {
 
-            /* ==========================================
-               ACTIVAR TRANSICIÓN
-               ========================================== */
+            console.log("ESCENA 1 TERMINADA ❤️");
 
-            if (transicion) {
+            const escena2 =
+                document.getElementById("escena2");
 
-                transicion.classList.add(
-                    "activa"
-                );
+            if (escena2) {
+
+                escena2.classList.add("activa");
 
             }
 
+        }, 1500);
 
-            /* ==========================================
-               ENTRADA ESCENA 2
-               ========================================== */
-
-            setTimeout(
-                () => {
-
-                    console.log(
-                        "ESCENA 1 TERMINADA ❤️"
-                    );
-
-
-                    const escena2 =
-                        document.getElementById(
-                            "escena2"
-                        );
-
-
-                    if (escena2) {
-
-                        escena2.classList.add(
-                            "activa"
-                        );
-
-                    }
-
-                },
-                1500
-            );
-
-        }
-    );
+    });
 
 }
-
 
 /* =========================================================
    INICIAR
