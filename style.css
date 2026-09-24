@@ -17770,3 +17770,150 @@ body {
 
     }
 }
+
+/* =========================================================
+   📱 SCROLL REAL — ESCENA 1
+   ========================================================= */
+
+/* El contenedor principal ahora puede desplazarse */
+.cumple {
+
+    position: relative;
+
+    width: 100vw;
+
+    height: 100dvh;
+
+    min-height: 100dvh;
+
+    overflow-x: hidden;
+
+    overflow-y: auto;
+
+    -webkit-overflow-scrolling: touch;
+
+    overscroll-behavior-y: contain;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTENIDO DE LA ESCENA 1
+   ========================================================= */
+
+.contenido {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    /*
+       Le damos más altura para que exista
+       una zona real de desplazamiento.
+    */
+
+    height: 125dvh;
+
+    min-height: 125dvh;
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   🔘 BOTÓN "TOQUE PARA COMEÇAR"
+   ========================================================= */
+
+.boton-comenzar {
+
+    position: absolute !important;
+
+    left: 50% !important;
+
+    /*
+       El botón estará DESPUÉS de la primera pantalla.
+       Se llega haciendo scroll hacia arriba.
+    */
+
+    top: calc(100dvh + 35px) !important;
+
+    bottom: auto !important;
+
+    transform: translateX(-50%) !important;
+
+    z-index: 10000 !important;
+
+    pointer-events: auto !important;
+
+    width: min(280px, 82%) !important;
+
+}
+
+
+/* =========================================================
+   📱 CELULARES
+   ========================================================= */
+
+@media (max-width: 500px) {
+
+    .cumple {
+
+        height: 100dvh;
+
+        min-height: 100dvh;
+
+        overflow-x: hidden;
+
+        overflow-y: auto;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    .contenido {
+
+        height: 125dvh;
+
+        min-height: 125dvh;
+    }
+
+
+    .boton-comenzar {
+
+        top: calc(100dvh + 35px) !important;
+
+        bottom: auto !important;
+
+        width: 82% !important;
+    }
+
+}
+
+
+/* =========================================================
+   📱 PANTALLAS PEQUEÑAS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .contenido {
+
+        height: 128dvh;
+
+        min-height: 128dvh;
+    }
+
+
+    .boton-comenzar {
+
+        top: calc(100dvh + 30px) !important;
+
+        width: 84% !important;
+    }
+
+}
