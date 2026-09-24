@@ -1717,7 +1717,6 @@ body {
    ========================================================= */
 
 .boton-comenzar {
-
     position: absolute;
 
     left: 50%;
@@ -1798,38 +1797,18 @@ body {
         box-shadow .25s ease;
 }
 
-
-/* =========================================================
-   🖱️ HOVER
-   ========================================================= */
-
 .boton-comenzar:hover {
-
     box-shadow:
         0 0 20px rgba(255, 70, 120, .35);
-
 }
 
-
-/* =========================================================
-   👆 PRESIONAR
-   ========================================================= */
-
 .boton-comenzar:active {
-
     transform:
         translateX(-50%)
         scale(.96);
-
 }
 
-
-/* =========================================================
-   ❤️ CORAZÓN DEL BOTÓN
-   ========================================================= */
-
 .boton-corazon {
-
     color: #ff5478;
 
     font-family:
@@ -1842,20 +1821,10 @@ body {
         0 0 8px rgba(255, 60, 110, .7);
 
     animation:
-        latido
-        1.8s
-        ease-in-out
-        infinite;
-
+        latido 1.8s ease-in-out infinite;
 }
 
-
-/* =========================================================
-   ✦ DESTELLO
-   ========================================================= */
-
 .boton-destello {
-
     color: #e8b273;
 
     font-size: 14px;
@@ -1864,37 +1833,22 @@ body {
         0 0 7px rgba(255, 190, 110, .7);
 
     animation:
-        destelloBoton
-        2s
-        ease-in-out
-        infinite;
-
+        destelloBoton 2s ease-in-out infinite;
 }
-
 
 @keyframes destelloBoton {
 
     0%,
     100% {
-
         opacity: .45;
-
-        transform:
-            scale(.85);
-
+        transform: scale(.85);
     }
 
     50% {
-
         opacity: 1;
-
-        transform:
-            scale(1.2);
-
+        transform: scale(1.2);
     }
-
 }
-
 
 /* =========================================================
    🔘 APARICIÓN DEL BOTÓN
@@ -1903,47 +1857,40 @@ body {
 @keyframes aparecerBoton {
 
     from {
-
         opacity: 0;
 
         transform:
             translateX(-50%)
             translateY(18px)
             scale(.94);
-
     }
 
     70% {
-
         opacity: 1;
 
         transform:
             translateX(-50%)
             translateY(0)
             scale(1.03);
-
     }
 
     to {
-
         opacity: 1;
 
         transform:
             translateX(-50%)
             translateY(0)
             scale(1);
-
     }
 
 }
 
 
 /* =========================================================
-   🌌 TRANSICIÓN
+   TRANSICIÓN
    ========================================================= */
 
 .transicion {
-
     position: fixed;
 
     inset: 0;
@@ -1970,17 +1917,13 @@ body {
     transition:
         transform 1.2s ease,
         opacity 1.2s ease;
-
 }
 
-
 .transicion.activa {
-
     opacity: 1;
 
     transform:
         scale(3);
-
 }
 
 
@@ -1991,114 +1934,56 @@ body {
 @media (max-width: 500px) {
 
     .saludo {
-
         top: 7%;
-
     }
-
 
     .frase-especial {
-
         top: 21.5%;
-
     }
-
 
     .corazon-luminoso {
-
         top: 31%;
-
     }
-
 
     .titulo-cumple {
-
         top: 38.5%;
-
     }
 
-
     .cake-stage {
-
         width: 290px;
-
         height: 220px;
 
         top: 53.5%;
-
     }
-
 
     .cake-body,
     .cake-top {
-
         width: 210px;
-
     }
-
 
     .cake-base {
-
         width: 225px;
-
     }
-
 
     .cake-frosting {
-
         width: 188px;
-
     }
-
 
     .cake-candles {
-
         width: 120px;
-
     }
-
 
     .cake-flowers {
-
         width: 248px;
-
     }
-
 
     .mensaje-final {
-
         top: 82%;
-
     }
-
-
-    /* =====================================================
-       🔘 BOTÓN FIJO EN PANTALLAS PEQUEÑAS
-       ===================================================== */
 
     .boton-comenzar {
-
-        position: fixed;
-
-        left: 50%;
-
-        bottom: 20px;
-
-        width:
-            min(
-                280px,
-                78%
-            );
-
-        height: 52px;
-
-        transform:
-            translateX(-50%);
-
-        z-index: 1000;
-
+        bottom: 4%;
     }
-
 }
 
 
@@ -2109,73 +1994,43 @@ body {
 @media (max-width: 380px) {
 
     .saludo {
-
         top: 6%;
-
     }
-
 
     .saludo-principal {
-
         font-size: 34px;
-
     }
-
 
     .frase-especial {
-
         top: 20.5%;
-
     }
-
 
     .titulo-cumple {
-
         top: 37%;
-
     }
-
 
     .titulo-cumple h1 {
-
         font-size: 40px;
-
     }
-
 
     .titulo-cumple h2 {
-
         font-size: 34px;
-
     }
 
-
     .cake-stage {
-
         top: 53%;
-
         transform:
             translateX(-50%)
             scale(.92);
-
     }
-
 
     .mensaje-final {
-
         top: 81%;
-
     }
-
 
     .boton-comenzar {
-
         width: 82%;
-
-        bottom: 18px;
-
     }
-
 }
 
 
@@ -3134,9 +2989,7 @@ body {
 }
 
 
-/* =================================================
-   💕 BOTÓN SHI SHI SHI SORPRESA
-   ================================================= */
+/* BOTÓN */
 
 .boton-sorpresa {
 
@@ -3160,17 +3013,11 @@ body {
     color: white;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 12px;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: Arial, sans-serif;
 
     letter-spacing: 1.5px;
 
@@ -3184,8 +3031,7 @@ body {
 
     pointer-events: auto;
 
-    transform:
-        translateY(15px);
+    transform: translateY(15px);
 
     animation: none;
 
@@ -3195,202 +3041,52 @@ body {
         background .25s ease;
 
     position: relative;
-
     z-index: 10000;
-
 }
-
-
-/* =================================================
-   ✨ APARECER CUANDO ENTRA ESCENA 2
-   ================================================= */
 
 #escena2.activa .boton-sorpresa {
 
     animation:
-        aparecerBotonSorpresa
-        1s
-        ease
-        forwards;
+        aparecerBotonSorpresa 1s ease forwards;
 
-    animation-delay:
-        4.8s;
-
+    animation-delay: 4.8s;
 }
-
-
-/* =================================================
-   ❤️ ELEMENTOS DEL BOTÓN
-   ================================================= */
 
 .boton-sorpresa span {
 
     font-size: 13px;
 
     color: #f6b5d3;
-
 }
-
 
 .boton-sorpresa strong {
 
     font-size: 12px;
 
     white-space: nowrap;
-
-    font-weight: 600;
-
-    letter-spacing: 1.5px;
-
 }
-
-
-/* =================================================
-   🖱️ HOVER
-   ================================================= */
 
 .boton-sorpresa:hover {
 
-    transform:
-        translateY(-2px);
+    transform: translateY(-2px);
 
     box-shadow:
         0 14px 40px rgba(0,0,0,.4),
         0 0 35px rgba(255,100,170,.22);
-
 }
-
-
-/* =================================================
-   👆 CLICK
-   ================================================= */
 
 .boton-sorpresa:active {
 
-    transform:
-        scale(.96);
-
+    transform: scale(.96);
 }
 
-
-/* =================================================
-   ✨ ANIMACIÓN DE ENTRADA
-   ================================================= */
 
 @keyframes aparecerBotonSorpresa {
 
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(15px);
-
-    }
-
     to {
-
         opacity: 1;
-
-        transform:
-            translateY(0);
-
+        transform: translateY(0);
     }
-
-}
-
-
-/* =================================================
-   📱 PANTALLAS CON POCA ALTURA
-   ================================================= */
-
-@media (max-height: 750px) {
-
-    .escena2-contenido {
-
-        top: 48%;
-
-    }
-
-    .carta-amor {
-
-        padding:
-            20px 18px;
-
-    }
-
-    .carta-contenido {
-
-        font-size: 14px;
-
-        line-height: 1.5;
-
-    }
-
-    .carta-contenido p {
-
-        margin-bottom: 11px;
-
-    }
-
-    .boton-sorpresa {
-
-        margin-top: 18px;
-
-    }
-
-}
-
-
-/* =================================================
-   📱 PANTALLAS MUY PEQUEÑAS
-   ================================================= */
-
-@media (max-height: 650px) {
-
-    .escena2-contenido {
-
-        top: 45%;
-
-    }
-
-    .boton-sorpresa {
-
-        margin-top: 12px;
-
-        min-height: 48px;
-
-        padding:
-            0 18px;
-
-    }
-
-}
-
-
-/* =================================================
-   📱 ANCHURA PEQUEÑA
-   ================================================= */
-
-@media (max-width: 380px) {
-
-    .boton-sorpresa {
-
-        max-width: 90%;
-
-        padding:
-            0 16px;
-
-    }
-
-    .boton-sorpresa strong {
-
-        font-size: 11px;
-
-        letter-spacing: 1.2px;
-
-    }
-
 }
 
 
@@ -17549,6 +17245,83 @@ body {
 
         height: 600px;
 
+    }
+
+}
+
+/* =========================================================
+   📱 SCROLL — ESCENA 1 Y ESCENA 2
+   Permite bajar para ver los botones completos
+   ========================================================= */
+
+#escena1,
+#escena2 {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    /* Permite desplazamiento suave */
+    scroll-behavior: smooth;
+
+    /* Evita que el contenido quede pegado al borde */
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* =========================================================
+   📱 ESCENA 1 — ESPACIO EXTRA PARA EL BOTÓN
+   ========================================================= */
+
+#escena1 {
+    min-height: 100vh;
+    box-sizing: border-box;
+
+    padding-bottom: 110px;
+}
+
+
+/* =========================================================
+   📱 ESCENA 2 — ESPACIO EXTRA PARA EL BOTÓN
+   ========================================================= */
+
+#escena2 {
+    min-height: 100vh;
+    box-sizing: border-box;
+
+    padding-bottom: 110px;
+}
+
+
+/* =========================================================
+   📱 CELULARES
+   ========================================================= */
+
+@media (max-width: 500px) {
+
+    #escena1,
+    #escena2 {
+        height: 100dvh;
+        min-height: 100dvh;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        padding-bottom: 130px;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+}
+
+
+/* =========================================================
+   📱 CELULARES MUY PEQUEÑOS
+   ========================================================= */
+
+@media (max-height: 700px) {
+
+    #escena1,
+    #escena2 {
+        padding-bottom: 160px;
     }
 
 }
