@@ -1142,37 +1142,37 @@ const indicadores =
 const momentos = [
 
     {
-        foto: "foto/foto1.png",
+        foto: "foto1.png",
         mensaje:
             "Cada momento contigo es muito especial. ❤️✨"
     },
 
     {
-        foto: "foto/foto2.png",
+        foto: "foto2.png",
         mensaje:
             "Mismo cuando estamos lejos... 🥺"
     },
 
     {
-        foto: "foto/foto3.png",
+        foto: "foto3.png",
         mensaje:
             "Com você, todo es más divertido. 😂❤️"
     },
 
     {
-        foto: "foto/foto4.png",
+        foto: "foto4.png",
         mensaje:
             "Y mismo lejos... 🥺"
     },
 
     {
-        foto: "foto/foto5.png",
+        foto: "foto5.png",
         mensaje:
             "Você consegue estar muitooo perto de mim. ❤️"
     },
 
     {
-        foto: "foto/foto6.png",
+        foto: "foto6.png",
         mensaje:
             "Eu espero continuar teniendo estos recuerdos por el momento, para que después, cuando vivamos juntos, lembremos de los días de las videollamadas. 🥹❤️"
     }
